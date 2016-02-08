@@ -28,7 +28,7 @@ public class ChronicleTest {
                 DataManagerBuilder
                         .create()
                         .withScheduler(new DirectScheduler())
-                        .withContentDeliveryDriver(new ChroniclePlugin(100000))
+                        .withContentDeliveryDriver(new ChroniclePlugin(100000, null))
                         .build()
         );
 

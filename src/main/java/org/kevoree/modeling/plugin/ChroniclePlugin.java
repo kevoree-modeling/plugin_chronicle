@@ -12,6 +12,8 @@ import org.kevoree.modeling.memory.chunk.KIntMapCallBack;
 import org.kevoree.modeling.memory.chunk.impl.ArrayIntMap;
 import org.kevoree.modeling.message.KMessage;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 public class ChroniclePlugin implements KContentDeliveryDriver {
@@ -21,20 +23,34 @@ public class ChroniclePlugin implements KContentDeliveryDriver {
     private ChronicleMap<String, String> raw;
 
     private long _maxEntries = 1000000;
+    private File _storage = null;
 
-    public ChroniclePlugin(long maxEntries) {
+    public ChroniclePlugin(long maxEntries, File storage) {
         this._maxEntries = maxEntries;
+        this._storage = storage;
     }
 
     @Override
     public void connect(KCallback<Throwable> callback) {
         if (!_isConnected) {
             long[] defKey = new long[]{KConfig.NULL_LONG, KConfig.NULL_LONG, KConfig.NULL_LONG};
-            raw = ChronicleMapBuilder.of(String.class, String.class)
-                    .averageKey(KContentKey.toString(defKey, 0))
-                    .averageValueSize(100)
-                    .entries(_maxEntries)
-                    .create();
+            if (this._storage != null) {
+                try {
+                    raw = ChronicleMapBuilder.of(String.class, String.class)
+                            .averageKey(KContentKey.toString(defKey, 0))
+                            .averageValueSize(100)
+                            .entries(_maxEntries)
+                            .createPersistedTo(this._storage);
+                } catch (IOException e) {
+                    callback.on(e);
+                }
+            } else {
+                raw = ChronicleMapBuilder.of(String.class, String.class)
+                        .averageKey(KContentKey.toString(defKey, 0))
+                        .averageValueSize(100)
+                        .entries(_maxEntries)
+                        .create();
+            }
             _isConnected = true;
             if (callback != null) {
                 callback.on(null);
