@@ -37,7 +37,7 @@ import org.kevoree.modeling.cdn.KContentDeliveryDriver;
 import org.kevoree.modeling.plugin.LevelDBPlugin;
 
 KContentDeliveryDriver levelDBDriver = 
-	new ChroniclePlugin(10000000,"/tmp/storageFile");
+	new ChroniclePlugin(10000000,new File("/tmp/storageFile"));
 model = new MyModel(
     DataManagerBuilder.create()
     .withContentDeliveryDriver(levelDBDriver)
