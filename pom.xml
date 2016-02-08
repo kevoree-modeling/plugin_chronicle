@@ -9,7 +9,7 @@
     <name>KMF :: Plugin :: Chronicle</name>
 
     <properties>
-        <kmf.version>4.26.1-SNAPSHOT</kmf.version>
+        <kmf.version>4.27.0</kmf.version>
     </properties>
 
     <licenses>
@@ -22,14 +22,21 @@
     <dependencies>
         <dependency>
             <groupId>org.kevoree.modeling</groupId>
-            <artifactId>org.kevoree.modeling.microframework</artifactId>
+            <artifactId>microframework</artifactId>
             <version>${kmf.version}</version>
         </dependency>
         <dependency>
-          <groupId>net.openhft</groupId>
-          <artifactId>chronicle-map</artifactId>
-          <version>2.0.14b</version>
+            <groupId>net.openhft</groupId>
+            <artifactId>chronicle-map</artifactId>
+            <version>3.4.2-beta</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.14</version>
+        </dependency>
+
         <!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
@@ -123,9 +130,9 @@
     </parent>
 
     <scm>
-        <connection>scm:git:git@github.com:kevoree-modeling/plugin_rest.git</connection>
-        <developerConnection>scm:git:git@github.com:kevoree-modeling/plugin_rest.git</developerConnection>
-        <url>http://github.com/kevoree-modeling/plugin_rest.git</url>
+        <connection>scm:git:git@github.com:kevoree-modeling/plugin_chronicle.git</connection>
+        <developerConnection>scm:git:git@github.com:kevoree-modeling/plugin_chronicle.git</developerConnection>
+        <url>http://github.com/kevoree-modeling/plugin_chronicle.git</url>
     </scm>
 
 </project>
